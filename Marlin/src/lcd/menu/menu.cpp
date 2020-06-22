@@ -348,7 +348,7 @@ void scroll_screen(const uint8_t limit, const bool is_menu) {
 
         const float mm_thousanths = 0.001;
         const float babystep_increment_f = float(int16_t(ui.encoderPosition)) * (BABYSTEP_MULTIPLICATOR_Z);
-        const float babystep_mm = mm_thousanths*babystep_increment_f;
+        const float babystep_out = mm_thousanths*babystep_increment_f;
 
         const float diff = mm_thousanths * babystep_increment_f,
                     new_probe_offset = probe.offset.z + diff,
@@ -359,6 +359,7 @@ void scroll_screen(const uint8_t limit, const bool is_menu) {
       #else // Use actual babysteps insead of mm
 
         const int16_t babystep_increment = int16_t(ui.encoderPosition) * (BABYSTEP_MULTIPLICATOR_Z);
+        const float babystep_out = babystep_increment;
         const float diff = planner.steps_to_mm[Z_AXIS] * babystep_increment,
                     new_probe_offset = probe.offset.z + diff,
                     new_offs = TERN(BABYSTEP_HOTEND_Z_OFFSET
@@ -373,12 +374,12 @@ void scroll_screen(const uint8_t limit, const bool is_menu) {
 
         #if ENABLED(BABYSTEP_ZPROBE_OFFSET_USE_MM) // Use mm directly
 
-          babystep.add_mm(Z_AXIS, babystep_mm);
+          babystep.add_mm(Z_AXIS, babystep_out);
 
         #else
 
-          babystep.add_steps(Z_AXIS, babystep_increment);
-          
+          babystep.add_steps(Z_AXIS, babystep_out);
+
         #endif
 
         if (do_probe)
