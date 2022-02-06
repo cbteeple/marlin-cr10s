@@ -752,7 +752,7 @@
  */
 //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 80, 80, 400, 95 } // These are the default values for 16 microsteps
 //#define DEFAULT_AXIS_STEPS_PER_UNIT  { 640, 640, 3200, 95 } // These are the values for 128 microsteps (16 on extruder)
-#define DEFAULT_AXIS_STEPS_PER_UNIT  { 640, 640, 3200, 409 } // These are the values for 128 microsteps (16 on Hemera extruder)
+#define DEFAULT_AXIS_STEPS_PER_UNIT  { 640, 640, 3200, 397 } // These are the values for 128 microsteps (16 on Hemera extruder)
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -988,7 +988,7 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -50, 5, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -40, 8.5, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -998,7 +998,7 @@
 #define XY_PROBE_SPEED 12000
 
 // Feedrate (mm/m) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST (30*60) //HOMING_FEEDRATE_Z
+#define Z_PROBE_SPEED_FAST (10*60) //HOMING_FEEDRATE_Z
 
 // Feedrate (mm/m) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -1125,15 +1125,25 @@
 
 // The size of the print bed
 #define X_BED_SIZE 300
-#define Y_BED_SIZE 290
+#define Y_BED_SIZE 300
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS -2
+#ifdef MANUAL_X_HOME_POS
+  #undef X_MIN_POS
+  #define X_MIN_POS MANUAL_X_HOME_POS // Match manual home psoition settings
+#endif
+
 #define Y_MIN_POS -2
+#ifdef MANUAL_Y_HOME_POS
+  #undef Y_MIN_POS
+  #define Y_MIN_POS MANUAL_Y_HOME_POS-2 // Match manual home psoition settings 
+#endif
+
 #define Z_MIN_POS 0
-#define X_MAX_POS 315 // 15mm Extra space on the right end
-#define Y_MAX_POS 300  //315 // 4mm Extra space behind the bed
-#define Z_MAX_POS 380
+#define X_MAX_POS 300 // 15mm Extra space on the right end
+#define Y_MAX_POS 305  //315 // 4mm Extra space behind the bed
+#define Z_MAX_POS 375
 
 /**
  * Software Endstops
@@ -1172,7 +1182,7 @@
  * For other boards you may need to define FIL_RUNOUT_PIN, FIL_RUNOUT2_PIN, etc.
  * By default the firmware assumes HIGH=FILAMENT PRESENT.
  */
-#define FILAMENT_RUNOUT_SENSOR
+//#define FILAMENT_RUNOUT_SENSOR
 #if ENABLED(FILAMENT_RUNOUT_SENSOR)
   #define NUM_RUNOUT_SENSORS   1     // Number of sensors, up to one per extruder. Define a FIL_RUNOUT#_PIN for each.
   #define FIL_RUNOUT_INVERTING true // Set to true to invert the logic of the sensor.
@@ -1283,7 +1293,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 5
+  #define GRID_MAX_POINTS_X 7
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -1374,8 +1384,8 @@
 
 // Manually set the home position. Leave these undefined for automatic settings.
 // For DELTA this is the top-center of the Cartesian print volume.
-#define MANUAL_X_HOME_POS 0
-#define MANUAL_Y_HOME_POS -15
+//#define MANUAL_X_HOME_POS 0
+#define MANUAL_Y_HOME_POS -10
 //#define MANUAL_Z_HOME_POS 0
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
