@@ -74,7 +74,8 @@
     uint8_t get_ADC_keyValue();
   #endif
 
-  #define LCD_UPDATE_INTERVAL TERN(TOUCH_BUTTONS, 50, 100)
+  //#define LCD_UPDATE_INTERVAL TERN(TOUCH_BUTTONS, 50, 100)
+  #define LCD_UPDATE_INTERVAL TERN(TOUCH_BUTTONS, 20, 40) // [CLARK] Trying to speed up LCD responsiveness
 
   #if HAS_LCD_MENU
 
