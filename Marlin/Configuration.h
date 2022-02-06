@@ -1141,7 +1141,7 @@
 #endif
 
 #define Z_MIN_POS 0
-#define X_MAX_POS 300 // 15mm Extra space on the right end
+#define X_MAX_POS 305 // 15mm Extra space on the right end
 #define Y_MAX_POS 305  //315 // 4mm Extra space behind the bed
 #define Z_MAX_POS 375
 
