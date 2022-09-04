@@ -988,7 +988,7 @@
  *
  * Specify a Probe position as { X, Y, Z }
  */
-#define NOZZLE_TO_PROBE_OFFSET { -40, 8.5, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { -50, 8.5, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1124,7 +1124,7 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 300
+#define X_BED_SIZE 295 // Accounting for 10mm bltouch spacer
 #define Y_BED_SIZE 300
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
@@ -1141,7 +1141,7 @@
 #endif
 
 #define Z_MIN_POS 0
-#define X_MAX_POS 305 // 15mm Extra space on the right end
+#define X_MAX_POS 295 // 15mm Extra space on the right end + 10mm for bltouch spacer
 #define Y_MAX_POS 305  //315 // 4mm Extra space behind the bed
 #define Z_MAX_POS 375
 
